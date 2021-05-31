@@ -2046,8 +2046,15 @@
 			<&tegra_car TEGRA186_CLK_APB2APE>,
 			<&tegra_car TEGRA186_CLK_APE>;
 		clock-names = "ahub", "parent", "apb2ape", "xbar.ape";
-		assigned-clocks = <&tegra_car TEGRA186_CLK_AHUB>;
-		assigned-clock-parents = <&tegra_car TEGRA186_CLK_PLL_A_OUT0>;
+		assigned-clocks = <&tegra_car TEGRA186_CLK_PLLA>,
+			<&tegra_car TEGRA186_CLK_PLL_A_OUT0>,
+			<&tegra_car TEGRA186_CLK_AHUB>;
+		assigned-clock-parents = <0>,
+			<&tegra_car TEGRA186_CLK_PLLA>,
+			<&tegra_car TEGRA186_CLK_PLLP_OUT0>;
+		assigned-clock-rates = <294912000>,
+			<49152000>,
+			<81600000>;
 		status = "disabled";
 
 		#address-cells = <2>;
