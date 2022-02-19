@@ -1374,7 +1374,7 @@
 		resets = <&tegra_car TEGRA186_RESET_GPU>;
 		clocks = <&tegra_car TEGRA186_CLK_GPCCLK>,
 			<&tegra_car TEGRA186_CLK_GPU>;
-		clock-names = "gpu", "gpu_sys";
+		clock-names = "gpu", "pwr";
 		fuse-overrides = <GP10B_FUSE_OPT_ECC_EN 0x9999>;
 	};
 
