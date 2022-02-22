@@ -97,7 +97,7 @@
 		status = "okay";
 	};
 
-	host1x {
+	host1x@13e00000 {
 		status = "okay";
 		ctx0 {
 			status = "okay";
