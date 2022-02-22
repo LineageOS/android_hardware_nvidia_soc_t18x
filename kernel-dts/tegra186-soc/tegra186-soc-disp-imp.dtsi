@@ -17,7 +17,7 @@
  */
 
 / {
-	host1x {
+	host1x@13e00000 {
 		disp_imp_table: disp_imp_table {
 			status = "okay";
 			num_settings = <6>;

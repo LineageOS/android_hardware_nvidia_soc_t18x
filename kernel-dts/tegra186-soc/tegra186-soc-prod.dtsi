@@ -443,7 +443,7 @@
 #if TEGRA_AUDIO_BUS_DT_VERSION >= DT_VERSION_2
 	};
 #endif
-	host1x {
+	host1x@13e00000 {
 		sor1 {
 			prod-settings {
 				#prod-cells = <3>;

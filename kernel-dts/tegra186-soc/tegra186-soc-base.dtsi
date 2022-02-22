@@ -784,7 +784,7 @@
 		status = "disabled";
 	};
 
-	host1x: host1x {
+	host1x: host1x@13e00000 {
 		compatible = "nvidia,tegra186-host1x", "simple-bus";
 		reg = <0x0 0x13e10000 0x0 0x00010000
 			0x0 0x13e00000 0x0 0x00010000
@@ -912,8 +912,8 @@
 			status = "disabled";
 		};
 
-		dc_common {
-			compatible = "nvidia,tegra_dc_common";
+		display-hub@15200000 {
+			compatible = "nvidia,tegra186-display", "simple-bus";
 			reg = <0x0 0x15200000 0x0 0x30000>;
 			nvidia,valid_heads = <0x03>;
 			nvidia,disp_imp_table = <&disp_imp_table>;
@@ -921,178 +921,183 @@
 			iommu-group-id = <TEGRA_IOMMU_GROUP_HOST1X>;
 			iommu-direct-regions = <&fb0_reserved &fb1_reserved
 						&fb2_reserved>;
-		};
 
-		head0: nvdisplay@15200000 {
-			compatible = "nvidia,tegra186-dc";
-			reg = <0x0 0x15200000 0x0 0x10000>;
-			interrupts = <0 153 0x04>;
-			win-mask = <0x7>;
-			iommus = <&smmu TEGRA_SID_NVDISPLAY>;
-			iommu-group-id = <TEGRA_IOMMU_GROUP_HOST1X>;
-			nvidia,dc-ctrlnum = <0>;
-			nvidia,cmu-enable = <0x1>;
-			clocks = <&tegra_car TEGRA186_CLK_NVDISPLAY_DISP>,
-				 <&tegra_car TEGRA186_CLK_NVDISPLAYHUB>,
-				 <&tegra_car TEGRA186_CLK_NVDISPLAY_P0>,
-				 <&tegra_car TEGRA186_CLK_NVDISPLAY_P1>,
-				 <&tegra_car TEGRA186_CLK_NVDISPLAY_P2>,
-				 <&tegra_car TEGRA186_CLK_NVDISPLAY_DSC>,
-				 <&tegra_car TEGRA186_CLK_PLLD>,
-				 <&tegra_car TEGRA186_CLK_PLLD2>,
-				 <&tegra_car TEGRA186_CLK_PLLD3>,
-				 <&tegra_car TEGRA186_CLK_PLLP_OUT0>,
-				 <&tegra_car TEGRA186_CLK_PLLD_OUT1>,
-				 <&tegra_car TEGRA186_CLK_EMC>;
-			clock-names = "nvdisplay_disp",
-				      "nvdisplayhub", "nvdisplay_p0",
-				      "nvdisplay_p1", "nvdisplay_p2", "nvdisp_dsc",
-				      "pll_d", "plld2", "plld3",
-				      "pllp_display", "pll_d_out1", "disp1_emc";
-			resets = <&tegra_car TEGRA186_RESET_NVDISPLAY0_MISC>,
-				 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP0>,
-				 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP1>,
-				 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP2>,
-				 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP3>,
-				 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP4>,
-				 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP5>,
-				 <&tegra_car TEGRA186_RESET_NVDISPLAY0_HEAD0>;
-			reset-names = "misc", "wgrp0", "wgrp1", "wgrp2",
-				      "wgrp3", "wgrp4", "wgrp5", "head0";
-			pinctrl-names = "dsi-dpd-disable", "dsi-dpd-enable",
-					"dsib-dpd-disable", "dsib-dpd-enable",
-					"dsic-dpd-disable", "dsic-dpd-enable",
-					"dsid-dpd-disable", "dsid-dpd-enable",
-					"hdmi-dp0-dpd-disable", "hdmi-dp0-dpd-enable",
-					"hdmi-dp1-dpd-disable", "hdmi-dp1-dpd-enable";
-			pinctrl-0 = <&dsi_dpd_disable>;
-			pinctrl-1 = <&dsi_dpd_enable>;
-			pinctrl-2 = <&dsib_dpd_disable>;
-			pinctrl-3 = <&dsib_dpd_enable>;
-			pinctrl-4 = <&dsic_dpd_disable>;
-			pinctrl-5 = <&dsic_dpd_enable>;
-			pinctrl-6 = <&dsid_dpd_disable>;
-			pinctrl-7 = <&dsid_dpd_enable>;
-			pinctrl-8 = <&hdmi_dp0_dpd_disable>;
-			pinctrl-9 = <&hdmi_dp0_dpd_enable>;
-			pinctrl-10 = <&hdmi_dp1_dpd_disable>;
-			pinctrl-11 = <&hdmi_dp1_dpd_enable>;
-			status = "disabled";
-			fb_reserved = <&fb0_reserved>;
-		};
+			#address-cells = <2>;
+			#size-cells = <2>;
 
-		head1: nvdisplay@15210000 {
-			compatible = "nvidia,tegra186-dc";
-			reg = <0x0 0x15210000 0x0 0x10000>;
-			interrupts = <0 154 0x04>;
-			win-mask = <0x38>;
-			iommus = <&smmu TEGRA_SID_NVDISPLAY>;
-			iommu-group-id = <TEGRA_IOMMU_GROUP_HOST1X>;
-			nvidia,dc-ctrlnum = <1>;
-			nvidia,cmu-enable = <0x1>;
-			clocks = <&tegra_car TEGRA186_CLK_NVDISPLAY_DISP>,
-				 <&tegra_car TEGRA186_CLK_NVDISPLAYHUB>,
-				 <&tegra_car TEGRA186_CLK_NVDISPLAY_P0>,
-				 <&tegra_car TEGRA186_CLK_NVDISPLAY_P1>,
-				 <&tegra_car TEGRA186_CLK_NVDISPLAY_P2>,
-				 <&tegra_car TEGRA186_CLK_NVDISPLAY_DSC>,
-				 <&tegra_car TEGRA186_CLK_PLLD>,
-				 <&tegra_car TEGRA186_CLK_PLLD2>,
-				 <&tegra_car TEGRA186_CLK_PLLD3>,
-				 <&tegra_car TEGRA186_CLK_PLLP_OUT0>,
-				 <&tegra_car TEGRA186_CLK_PLLD_OUT1>,
-				 <&tegra_car TEGRA186_CLK_EMC>;
-			clock-names = "nvdisplay_disp",
-				      "nvdisplayhub", "nvdisplay_p0",
-				      "nvdisplay_p1", "nvdisplay_p2", "nvdisp_dsc",
-				      "pll_d", "plld2", "plld3",
-				      "pllp_display", "pll_d_out1", "disp2_emc";
-			resets = <&tegra_car TEGRA186_RESET_NVDISPLAY0_MISC>,
-				 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP0>,
-				 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP1>,
-				 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP2>,
-				 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP3>,
-				 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP4>,
-				 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP5>,
-				 <&tegra_car TEGRA186_RESET_NVDISPLAY0_HEAD1>;
-			reset-names = "misc", "wgrp0", "wgrp1", "wgrp2",
-				      "wgrp3", "wgrp4", "wgrp5", "head1";
-			pinctrl-names = "dsi-dpd-disable", "dsi-dpd-enable",
-					"dsib-dpd-disable", "dsib-dpd-enable",
-					"dsic-dpd-disable", "dsic-dpd-enable",
-					"dsid-dpd-disable", "dsid-dpd-enable",
-					"hdmi-dp0-dpd-disable", "hdmi-dp0-dpd-enable",
-					"hdmi-dp1-dpd-disable", "hdmi-dp1-dpd-enable";
-			pinctrl-0 = <&dsi_dpd_disable>;
-			pinctrl-1 = <&dsi_dpd_enable>;
-			pinctrl-2 = <&dsib_dpd_disable>;
-			pinctrl-3 = <&dsib_dpd_enable>;
-			pinctrl-4 = <&dsic_dpd_disable>;
-			pinctrl-5 = <&dsic_dpd_enable>;
-			pinctrl-6 = <&dsid_dpd_disable>;
-			pinctrl-7 = <&dsid_dpd_enable>;
-			pinctrl-8 = <&hdmi_dp0_dpd_disable>;
-			pinctrl-9 = <&hdmi_dp0_dpd_enable>;
-			pinctrl-10 = <&hdmi_dp1_dpd_disable>;
-			pinctrl-11 = <&hdmi_dp1_dpd_enable>;
-			status = "disabled";
-			fb_reserved = <&fb1_reserved>;
-		};
+			ranges;
 
-		head2: nvdisplay@15220000 {
-			compatible = "nvidia,tegra186-dc";
-			reg = <0x0 0x15220000 0x0 0x10000>;
-			interrupts = <0 155 0x04>;
-			win-mask = <0x0>;
-			iommus = <&smmu TEGRA_SID_NVDISPLAY>;
-			iommu-group-id = <TEGRA_IOMMU_GROUP_HOST1X>;
-			nvidia,dc-ctrlnum = <2>;
-			nvidia,cmu-enable = <0x1>;
-			clocks = <&tegra_car TEGRA186_CLK_NVDISPLAY_DISP>,
-				 <&tegra_car TEGRA186_CLK_NVDISPLAYHUB>,
-				 <&tegra_car TEGRA186_CLK_NVDISPLAY_P0>,
-				 <&tegra_car TEGRA186_CLK_NVDISPLAY_P1>,
-				 <&tegra_car TEGRA186_CLK_NVDISPLAY_P2>,
-				 <&tegra_car TEGRA186_CLK_NVDISPLAY_DSC>,
-				 <&tegra_car TEGRA186_CLK_PLLD2>,
-				 <&tegra_car TEGRA186_CLK_PLLD3>,
-				 <&tegra_car TEGRA186_CLK_PLLP_OUT0>,
-				 <&tegra_car TEGRA186_CLK_EMC>;
-			clock-names = "nvdisplay_disp",
-				      "nvdisplayhub", "nvdisplay_p0",
-				      "nvdisplay_p1", "nvdisplay_p2", "nvdisp_dsc",
-				      "plld2", "plld3",
-				      "pllp_display", "disp3_emc";
-			resets = <&tegra_car TEGRA186_RESET_NVDISPLAY0_MISC>,
-				 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP0>,
-				 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP1>,
-				 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP2>,
-				 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP3>,
-				 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP4>,
-				 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP5>,
-				 <&tegra_car TEGRA186_RESET_NVDISPLAY0_HEAD2>;
-			reset-names = "misc", "wgrp0", "wgrp1", "wgrp2",
-				      "wgrp3", "wgrp4", "wgrp5", "head2";
-			pinctrl-names = "dsi-dpd-disable", "dsi-dpd-enable",
-					"dsib-dpd-disable", "dsib-dpd-enable",
-					"dsic-dpd-disable", "dsic-dpd-enable",
-					"dsid-dpd-disable", "dsid-dpd-enable",
-					"hdmi-dp0-dpd-disable", "hdmi-dp0-dpd-enable",
-					"hdmi-dp1-dpd-disable", "hdmi-dp1-dpd-enable";
-			pinctrl-0 = <&dsi_dpd_disable>;
-			pinctrl-1 = <&dsi_dpd_enable>;
-			pinctrl-2 = <&dsib_dpd_disable>;
-			pinctrl-3 = <&dsib_dpd_enable>;
-			pinctrl-4 = <&dsic_dpd_disable>;
-			pinctrl-5 = <&dsic_dpd_enable>;
-			pinctrl-6 = <&dsid_dpd_disable>;
-			pinctrl-7 = <&dsid_dpd_enable>;
-			pinctrl-8 = <&hdmi_dp0_dpd_disable>;
-			pinctrl-9 = <&hdmi_dp0_dpd_enable>;
-			pinctrl-10 = <&hdmi_dp1_dpd_disable>;
-			pinctrl-11 = <&hdmi_dp1_dpd_enable>;
-			status = "disabled";
-			fb_reserved = <&fb2_reserved>;
+			head0: display@15200000 {
+				compatible = "nvidia,tegra186-dc";
+				reg = <0x0 0x15200000 0x0 0x10000>;
+				interrupts = <0 153 0x04>;
+				win-mask = <0x7>;
+				iommus = <&smmu TEGRA_SID_NVDISPLAY>;
+				iommu-group-id = <TEGRA_IOMMU_GROUP_HOST1X>;
+				nvidia,dc-ctrlnum = <0>;
+				nvidia,cmu-enable = <0x1>;
+				clocks = <&tegra_car TEGRA186_CLK_NVDISPLAY_DISP>,
+					 <&tegra_car TEGRA186_CLK_NVDISPLAYHUB>,
+					 <&tegra_car TEGRA186_CLK_NVDISPLAY_P0>,
+					 <&tegra_car TEGRA186_CLK_NVDISPLAY_P1>,
+					 <&tegra_car TEGRA186_CLK_NVDISPLAY_P2>,
+					 <&tegra_car TEGRA186_CLK_NVDISPLAY_DSC>,
+					 <&tegra_car TEGRA186_CLK_PLLD>,
+					 <&tegra_car TEGRA186_CLK_PLLD2>,
+					 <&tegra_car TEGRA186_CLK_PLLD3>,
+					 <&tegra_car TEGRA186_CLK_PLLP_OUT0>,
+					 <&tegra_car TEGRA186_CLK_PLLD_OUT1>,
+					 <&tegra_car TEGRA186_CLK_EMC>;
+				clock-names = "nvdisplay_disp",
+					      "nvdisplayhub", "nvdisplay_p0",
+					      "nvdisplay_p1", "nvdisplay_p2", "nvdisp_dsc",
+					      "pll_d", "plld2", "plld3",
+					      "pllp_display", "pll_d_out1", "disp1_emc";
+				resets = <&tegra_car TEGRA186_RESET_NVDISPLAY0_MISC>,
+					 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP0>,
+					 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP1>,
+					 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP2>,
+					 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP3>,
+					 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP4>,
+					 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP5>,
+					 <&tegra_car TEGRA186_RESET_NVDISPLAY0_HEAD0>;
+				reset-names = "misc", "wgrp0", "wgrp1", "wgrp2",
+					      "wgrp3", "wgrp4", "wgrp5", "head0";
+				pinctrl-names = "dsi-dpd-disable", "dsi-dpd-enable",
+						"dsib-dpd-disable", "dsib-dpd-enable",
+						"dsic-dpd-disable", "dsic-dpd-enable",
+						"dsid-dpd-disable", "dsid-dpd-enable",
+						"hdmi-dp0-dpd-disable", "hdmi-dp0-dpd-enable",
+						"hdmi-dp1-dpd-disable", "hdmi-dp1-dpd-enable";
+				pinctrl-0 = <&dsi_dpd_disable>;
+				pinctrl-1 = <&dsi_dpd_enable>;
+				pinctrl-2 = <&dsib_dpd_disable>;
+				pinctrl-3 = <&dsib_dpd_enable>;
+				pinctrl-4 = <&dsic_dpd_disable>;
+				pinctrl-5 = <&dsic_dpd_enable>;
+				pinctrl-6 = <&dsid_dpd_disable>;
+				pinctrl-7 = <&dsid_dpd_enable>;
+				pinctrl-8 = <&hdmi_dp0_dpd_disable>;
+				pinctrl-9 = <&hdmi_dp0_dpd_enable>;
+				pinctrl-10 = <&hdmi_dp1_dpd_disable>;
+				pinctrl-11 = <&hdmi_dp1_dpd_enable>;
+				status = "disabled";
+				fb_reserved = <&fb0_reserved>;
+			};
+
+			head1: display@15210000 {
+				compatible = "nvidia,tegra186-dc";
+				reg = <0x0 0x15210000 0x0 0x10000>;
+				interrupts = <0 154 0x04>;
+				win-mask = <0x38>;
+				iommus = <&smmu TEGRA_SID_NVDISPLAY>;
+				iommu-group-id = <TEGRA_IOMMU_GROUP_HOST1X>;
+				nvidia,dc-ctrlnum = <1>;
+				nvidia,cmu-enable = <0x1>;
+				clocks = <&tegra_car TEGRA186_CLK_NVDISPLAY_DISP>,
+					 <&tegra_car TEGRA186_CLK_NVDISPLAYHUB>,
+					 <&tegra_car TEGRA186_CLK_NVDISPLAY_P0>,
+					 <&tegra_car TEGRA186_CLK_NVDISPLAY_P1>,
+					 <&tegra_car TEGRA186_CLK_NVDISPLAY_P2>,
+					 <&tegra_car TEGRA186_CLK_NVDISPLAY_DSC>,
+					 <&tegra_car TEGRA186_CLK_PLLD>,
+					 <&tegra_car TEGRA186_CLK_PLLD2>,
+					 <&tegra_car TEGRA186_CLK_PLLD3>,
+					 <&tegra_car TEGRA186_CLK_PLLP_OUT0>,
+					 <&tegra_car TEGRA186_CLK_PLLD_OUT1>,
+					 <&tegra_car TEGRA186_CLK_EMC>;
+				clock-names = "nvdisplay_disp",
+					      "nvdisplayhub", "nvdisplay_p0",
+					      "nvdisplay_p1", "nvdisplay_p2", "nvdisp_dsc",
+					      "pll_d", "plld2", "plld3",
+					      "pllp_display", "pll_d_out1", "disp2_emc";
+				resets = <&tegra_car TEGRA186_RESET_NVDISPLAY0_MISC>,
+					 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP0>,
+					 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP1>,
+					 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP2>,
+					 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP3>,
+					 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP4>,
+					 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP5>,
+					 <&tegra_car TEGRA186_RESET_NVDISPLAY0_HEAD1>;
+				reset-names = "misc", "wgrp0", "wgrp1", "wgrp2",
+					      "wgrp3", "wgrp4", "wgrp5", "head1";
+				pinctrl-names = "dsi-dpd-disable", "dsi-dpd-enable",
+						"dsib-dpd-disable", "dsib-dpd-enable",
+						"dsic-dpd-disable", "dsic-dpd-enable",
+						"dsid-dpd-disable", "dsid-dpd-enable",
+						"hdmi-dp0-dpd-disable", "hdmi-dp0-dpd-enable",
+						"hdmi-dp1-dpd-disable", "hdmi-dp1-dpd-enable";
+				pinctrl-0 = <&dsi_dpd_disable>;
+				pinctrl-1 = <&dsi_dpd_enable>;
+				pinctrl-2 = <&dsib_dpd_disable>;
+				pinctrl-3 = <&dsib_dpd_enable>;
+				pinctrl-4 = <&dsic_dpd_disable>;
+				pinctrl-5 = <&dsic_dpd_enable>;
+				pinctrl-6 = <&dsid_dpd_disable>;
+				pinctrl-7 = <&dsid_dpd_enable>;
+				pinctrl-8 = <&hdmi_dp0_dpd_disable>;
+				pinctrl-9 = <&hdmi_dp0_dpd_enable>;
+				pinctrl-10 = <&hdmi_dp1_dpd_disable>;
+				pinctrl-11 = <&hdmi_dp1_dpd_enable>;
+				status = "disabled";
+				fb_reserved = <&fb1_reserved>;
+			};
+
+			head2: display@15220000 {
+				compatible = "nvidia,tegra186-dc";
+				reg = <0x0 0x15220000 0x0 0x10000>;
+				interrupts = <0 155 0x04>;
+				win-mask = <0x0>;
+				iommus = <&smmu TEGRA_SID_NVDISPLAY>;
+				iommu-group-id = <TEGRA_IOMMU_GROUP_HOST1X>;
+				nvidia,dc-ctrlnum = <2>;
+				nvidia,cmu-enable = <0x1>;
+				clocks = <&tegra_car TEGRA186_CLK_NVDISPLAY_DISP>,
+					 <&tegra_car TEGRA186_CLK_NVDISPLAYHUB>,
+					 <&tegra_car TEGRA186_CLK_NVDISPLAY_P0>,
+					 <&tegra_car TEGRA186_CLK_NVDISPLAY_P1>,
+					 <&tegra_car TEGRA186_CLK_NVDISPLAY_P2>,
+					 <&tegra_car TEGRA186_CLK_NVDISPLAY_DSC>,
+					 <&tegra_car TEGRA186_CLK_PLLD2>,
+					 <&tegra_car TEGRA186_CLK_PLLD3>,
+					 <&tegra_car TEGRA186_CLK_PLLP_OUT0>,
+					 <&tegra_car TEGRA186_CLK_EMC>;
+				clock-names = "nvdisplay_disp",
+					      "nvdisplayhub", "nvdisplay_p0",
+					      "nvdisplay_p1", "nvdisplay_p2", "nvdisp_dsc",
+					      "plld2", "plld3",
+					      "pllp_display", "disp3_emc";
+				resets = <&tegra_car TEGRA186_RESET_NVDISPLAY0_MISC>,
+					 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP0>,
+					 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP1>,
+					 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP2>,
+					 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP3>,
+					 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP4>,
+					 <&tegra_car TEGRA186_RESET_NVDISPLAY0_WGRP5>,
+					 <&tegra_car TEGRA186_RESET_NVDISPLAY0_HEAD2>;
+				reset-names = "misc", "wgrp0", "wgrp1", "wgrp2",
+					      "wgrp3", "wgrp4", "wgrp5", "head2";
+				pinctrl-names = "dsi-dpd-disable", "dsi-dpd-enable",
+						"dsib-dpd-disable", "dsib-dpd-enable",
+						"dsic-dpd-disable", "dsic-dpd-enable",
+						"dsid-dpd-disable", "dsid-dpd-enable",
+						"hdmi-dp0-dpd-disable", "hdmi-dp0-dpd-enable",
+						"hdmi-dp1-dpd-disable", "hdmi-dp1-dpd-enable";
+				pinctrl-0 = <&dsi_dpd_disable>;
+				pinctrl-1 = <&dsi_dpd_enable>;
+				pinctrl-2 = <&dsib_dpd_disable>;
+				pinctrl-3 = <&dsib_dpd_enable>;
+				pinctrl-4 = <&dsic_dpd_disable>;
+				pinctrl-5 = <&dsic_dpd_enable>;
+				pinctrl-6 = <&dsid_dpd_disable>;
+				pinctrl-7 = <&dsid_dpd_enable>;
+				pinctrl-8 = <&hdmi_dp0_dpd_disable>;
+				pinctrl-9 = <&hdmi_dp0_dpd_enable>;
+				pinctrl-10 = <&hdmi_dp1_dpd_disable>;
+				pinctrl-11 = <&hdmi_dp1_dpd_enable>;
+				status = "disabled";
+				fb_reserved = <&fb2_reserved>;
+			};
 		};
 
 		dsi: dsi {	/* dsi@15300000 */
