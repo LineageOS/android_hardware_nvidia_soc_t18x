@@ -1204,6 +1204,7 @@
 		sor0: sor {
 			compatible = "nvidia,tegra186-sor";
 			reg = <0x0 0x15540000 0x0 0x00040000>;
+			interrupts = <0 157 0x4>; /* INT_SOR_0 */
 			nvidia,sor-ctrlnum = <0>;
 			nvidia,dpaux = <&dpaux0>;
 			nvidia,xbar-ctrl = <2 1 0 3 4>;
