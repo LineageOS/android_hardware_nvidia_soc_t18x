@@ -1377,6 +1377,7 @@
 		nvidia,host1x = <&host1x>;
 		iommus = <&smmu TEGRA_SID_GPUB>;
 		access-vpr-phys;
+		power-domains = <&bpmp TEGRA186_POWER_DOMAIN_GPU>;
 		resets = <&tegra_car TEGRA186_RESET_GPU>;
 		clocks = <&tegra_car TEGRA186_CLK_GPCCLK>,
 			<&tegra_car TEGRA186_CLK_GPU>;
