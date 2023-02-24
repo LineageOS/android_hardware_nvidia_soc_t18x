@@ -197,9 +197,11 @@
 		status = "okay";
 	};
 
+#ifndef CONFIG_ANDROID
 	adsp_audio {
 		status = "okay";
 	};
+#endif
 #if TEGRA_AUDIO_BUS_DT_VERSION >= DT_VERSION_2
 	};
 #endif
