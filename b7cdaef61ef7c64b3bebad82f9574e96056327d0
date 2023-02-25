@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0d93a77_112223d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14048
+      },
+      "writtenOn": "2023-02-25T01:15:49Z",
+      "side": 1,
+      "message": "Verified on quill that adsp audio is disabled and dia link parsing skips adsp instead of erroring out.",
+      "revId": "b7cdaef61ef7c64b3bebad82f9574e96056327d0",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
